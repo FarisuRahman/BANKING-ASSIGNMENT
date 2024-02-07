@@ -1,0 +1,52 @@
+accounts ={
+    'user1' :{'password': 'password1','balance':1000},
+    'user2' :{'password': 'password2','balance':700},
+}
+def login():
+    username=input("enter your username:")
+    password=input("enter your password")
+
+    if username in accounts and accounts[username]['password'] == password:
+        return True,username
+    else:
+        return False,None
+
+def deposit(username):
+    amount = int(input("Enter amount to deposit: "))
+    accounts[username]['balance'] += amount
+    print(f"Cash is credited.your new balnace is{accounts[username]['balance']}")
+
+def withdraw(username):
+    amount = int(input("enter amount to withdraw:"))
+    if amount <= accounts[username]['balance']:
+        accounts[username]['balance']-=amount
+        print(f"withdrawal successful.your new balance is {accounts[username]['balance']}")
+    else:
+        ("print insufficient fund")
+
+def main():
+    logged_in = False
+    while not logged_in:
+        success, username = login()
+        if success:
+            logged_in = True
+            print(f"welcome ,{username}!")
+        else:
+            print("invalid credentials.Please try again")
+    while True:
+        print("press 1 to deposit")
+        print("press 2 to withdraw")
+        print("press 3 to exit")
+        choice = input("Enter your choice:")
+
+        if choice =='1':
+            deposit(username)
+        elif choice =='2':
+            withdraw(username)
+        elif choice == '3':
+            print("Thankyou for using our bank system.Goodbye")
+            break
+        else:
+            print("invalid choice")
+if __name__ == "__main__":
+    main()
